@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const db = require('./db');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 // Middleware
 app.use(bodyParser.json());
@@ -22,7 +22,7 @@ app.get('/rooms', (req, res) => {
 // Obtener una habitacion por ID
 app.get('/rooms/:code', (req, res) => {
     const code = req.params.code;
-    db.query('SELECT * FROM room WHERE id = ?', [code], (err, results) => {
+    db.query('SELECT * FROM hotel_system.room WHERE code = ?', [code], (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -80,7 +80,7 @@ app.get('/bookings', (req, res) => {
 
 app.get('/bookings/:code', (req, res) => {
     const code = req.params.code;
-    db.query('SELECT * FROM reservation WHERE id = ?', [code], (err, results) => {
+    db.query('SELECT * FROM reservation WHERE code = ?', [code], (err, results) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
